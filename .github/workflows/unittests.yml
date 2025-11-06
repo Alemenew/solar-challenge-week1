@@ -25,5 +25,11 @@ jobs:
     
     - name: Run tests
       run: |
-        pytest tests/ -v
+        pytest tests/ -v; exit_code=$?
+        if [ $exit_code -eq 5 ]; then
+          echo "No tests found - this is OK for new projects"
+          exit 0
+        else
+          exit $exit_code
+        fi
 
